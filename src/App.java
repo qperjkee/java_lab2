@@ -28,4 +28,16 @@ public class App {
 
         return result;
     }
+    
+    public static void main(String[] args) {
+        String inputText = "lorem ipsum dolor sit amet, consectetur adipiscing, sed diam non commod tempor.";
+        int wordLength = 4;
+
+        StringBuffer textBuffer = new StringBuffer(inputText);
+
+        StringBuffer processedText = removeWords(textBuffer, wordLength);
+
+        System.out.println("Original text: " + inputText);
+        System.out.println("Filtered text: " + processedText.toString().trim());
+    }
 }
