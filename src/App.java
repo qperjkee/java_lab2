@@ -15,6 +15,7 @@ public class App {
         StringBuffer result = new StringBuffer();
         StringBuffer word = new StringBuffer();
         char punctuation = '\0';
+        boolean wordAdded = false;
         
         try {
             for (int i = 0; i < text.length(); i++) {
@@ -22,26 +23,31 @@ public class App {
     
                 if (".,!?".indexOf(currentChar) != -1) {
                     punctuation = currentChar;
+                    continue;
                 }
     
                 if (Character.isWhitespace(currentChar) || i == text.length() - 1) {
-                    if (i == text.length() - 1 && !Character.isWhitespace(currentChar) && ".,!?".indexOf(currentChar) == -1) {
+                    if (i == text.length() - 1 && !Character.isWhitespace(currentChar)) {
                         word.append(currentChar);
                     }
     
                     if (word.length() > 0) {
                         if (!(word.length() == wordLength && isConsonant(word.charAt(0)))) {
-                            result.append(word);
-                            if (punctuation != '\0') {
-                                result.append(punctuation);
+                            if (wordAdded) {
+                                result.append(" ");
                             }
-                            result.append(" ");
+                            result.append(word);
+                            wordAdded = true;
+                        }
+    
+                        if (punctuation != '\0') {
+                            result.append(punctuation);
+                            punctuation = '\0';
                         }
                     }
     
                     word.setLength(0);
-                    punctuation = '\0';
-                } else if (".,!?".indexOf(currentChar) == -1) {
+                } else {
                     word.append(currentChar);
                 }
             }
